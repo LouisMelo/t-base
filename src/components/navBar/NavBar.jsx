@@ -43,7 +43,7 @@ const NavBar = () => {
     <AppBar position='absolute' color='default' className={classes.appBar}>
       <Toolbar>
         <Grid container>
-          <Grid item md={6} style={{ display: 'flex', alignItems: 'center'}}>
+          <Grid item xs={6} md={6} style={{ display: 'flex', alignItems: 'center'}}>
             <img src={logo} alt="logo" height='40px'/>
             <Typography variant='h6' color='inherit' noWrap>
               <Box fontWeight={600}>
@@ -51,7 +51,7 @@ const NavBar = () => {
               </Box>
             </Typography>
           </Grid>
-          <Grid item md={6} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end'}}>
+          <Grid item xs={6} md={6} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end'}}>
             <Typography variant="subtitle2" className={classes.title}>
               你好，{user.name}
             </Typography>

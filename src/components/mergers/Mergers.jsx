@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Paper, Table, TableBody, TableHead, TableCell, TableRow, TableContainer } from '@material-ui/core'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import MergerItem from './MergerItem'
+import round from 'lodash/round'
 
 import { getMergers } from '../../store/actions/mergerActions'
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
   empty: {
     marginTop: theme.spacing(2),
     padding: theme.spacing(2)
+  },
+  sum: {
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(2),
+    textAlign: 'end'
   }
 }));
 
@@ -51,6 +57,8 @@ const Mergers = () => {
     )
   }
 
+  const sumOfProfit = round(mergers.reduce((sum, curr) => sum + curr.profit, 0), 2)
+
   return (
     <React.Fragment>
       <ThemeProvider theme={tableTheme}>
@@ -75,6 +83,9 @@ const Mergers = () => {
           </Table>
         </TableContainer>
       </ThemeProvider>
+      <Paper className={classes.sum}>
+        {`历史收益：¥${sumOfProfit}`}
+      </Paper>
     </React.Fragment>
   );
 }
