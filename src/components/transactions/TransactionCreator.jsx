@@ -111,7 +111,7 @@ const TransactionCreator = () => {
   }
 
   const clearData = () => {
-    setType('')
+    setType('b')
     setCode('')
     setPrice('')
     setAmount('')

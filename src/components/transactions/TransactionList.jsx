@@ -14,21 +14,13 @@ import TransactionItem from './TransactionItem';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import xor from 'lodash/xor'
 import { getTransactions } from '../../store/actions/transactionActions'
+import {
+  CSSTransition,
+  TransitionGroup,
+} from 'react-transition-group'
 
 import { makeStyles } from '@material-ui/core/styles';
-
-// function createData(_id, type, code, price, amount, date) {
-//   return { _id, type, code, price, amount, date }
-// }
-
-// const transactions = [
-//   createData('1', 'b', '601166', 25.3, 3000, '今天'),
-//   createData('2', 's', '601166', 25.3, 3000, '昨天'),
-//   createData('3', 'b', '601166', 25.3, 3000, '昨天'),
-//   createData('4', 'b', '601166', 25.3, 3000, '昨天'),
-//   createData('5', 's', '601166', 25.3, 3000, '前天'),
-//   createData('6', 's', '601166', 25.3, 3000, '前天'),
-// ]
+import './style.css'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -50,7 +42,7 @@ const TransactionList = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const auth = useSelector((state) => state.auth)
-  const transactions = useSelector((state) => state.transactions)
+  const transactions = useSelector((state) => state.transactions, (left, right) => left === right)
 
   const [selected, setSelected] = useState([])
 
@@ -110,14 +102,22 @@ const TransactionList = () => {
           <Table>
             { tableHead }
             <TableBody>
-              {transactions.map((t) => (
-                <TransactionItem
-                  key={t._id}
-                  transaction={t}
-                  selectedIds={selected}
-                  handleSelect={handleSelect}
-                />
-              ))}
+              <TransitionGroup component={ React.Fragment }>
+                {transactions.map((t) => (
+                  <CSSTransition
+                    key={t._id}
+                    timeout={500}
+                    classNames='item'
+                  >
+                    <TransactionItem
+                      key={t._id}
+                      transaction={t}
+                      selectedIds={selected}
+                      handleSelect={handleSelect}
+                    />
+                  </CSSTransition>
+                ))}
+              </TransitionGroup>
             </TableBody>
           </Table>
         </TableContainer>
