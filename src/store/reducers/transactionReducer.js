@@ -9,6 +9,11 @@ const transactionReducer = (transactions = [], action) => {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
       return [action.transaction.data, ...transactions]
+    case 'DELETE_TRANSACTION':
+      toast.success("交易记录已删除...", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+      return transactions.filter((t) => t._id !== action.id)
     default:
       return transactions
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux'
 import dayjs from 'dayjs'
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,12 +11,19 @@ import CallReceivedIcon from '@material-ui/icons/CallReceived';
 import green from '@material-ui/core/colors/green'
 import red from '@material-ui/core/colors/red'
 
+import { deleteTransaction } from '../../store/actions/transactionActions'
+
 const TransactionItem = (props) => {
   const { selectedIds, handleSelect } = props
   const { _id, type, code, amount, price, date } = props.transaction
+  const dispatch = useDispatch()
 
   const handleChange = () => {
     handleSelect(_id)
+  }
+
+  const handleDelete = () => {
+    dispatch(deleteTransaction(_id))
   }
 
   return (
@@ -36,7 +44,7 @@ const TransactionItem = (props) => {
       <TableCell>{ price * amount }</TableCell>
       <TableCell>{dayjs(date).format('YYYY-MM-DD')}</TableCell>
       <TableCell>
-        <IconButton aria-label='delete'>
+        <IconButton aria-label='delete' onClick={handleDelete}>
           <DeleteIcon />
         </IconButton>
       </TableCell>

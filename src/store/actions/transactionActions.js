@@ -35,3 +35,23 @@ export const addTransaction = (transaction) => {
       })
   }
 }
+
+export const deleteTransaction = (id) => {
+  return (dispatch) => {
+    axios
+      .delete(`${API_URL}/transactions/${id}`, setHeaders())
+      .then(() => {
+        dispatch({
+          type: 'DELETE_TRANSACTION',
+          id,
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+
+        toast.error(error.response?.data, {
+          position: toast.POSITION.BOTTOM_RIGHT
+        })
+      })
+  }
+}
