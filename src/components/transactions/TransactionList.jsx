@@ -14,6 +14,7 @@ import TransactionItem from './TransactionItem';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import xor from 'lodash/xor'
 import { getTransactions } from '../../store/actions/transactionActions'
+import { addMerger } from '../../store/actions/mergerActions'
 import {
   CSSTransition,
   TransitionGroup,
@@ -26,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
   margin: {
     marginTop: theme.spacing(2),
   },
+  padding: {
+    padding: theme.spacing(2)
+  }
 }));
 
 const tableTheme = createMuiTheme({
@@ -66,12 +70,24 @@ const TransactionList = () => {
     return xor(selected, transactions.map(t => t._id)).length === 0
   }
 
+  const handleMerge = () => {
+    dispatch(addMerger(selected))
+  }
+
   useEffect(() => {
     dispatch(getTransactions())
   }, [dispatch])
 
   if (!auth._id) {
     return <Redirect to='/login' />
+  }
+
+  if (!transactions.length) {
+    return (
+      <Paper className={classes.padding}>
+        <h2>暂无未合并的成交记录，请添加...🙋</h2>
+      </Paper>
+    )
   }
 
   const tableHead = (
@@ -123,7 +139,14 @@ const TransactionList = () => {
         </TableContainer>
       </ThemeProvider>
       { selected.length > 0 &&
-        <Button variant='contained' size="medium" color="primary" fullWidth className={classes.margin}>
+        <Button
+          variant='contained'
+          size="medium"
+          color="primary"
+          fullWidth
+          className={classes.margin}
+          onClick={handleMerge}
+        >
           合并
         </Button>
       }

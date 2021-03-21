@@ -12,6 +12,10 @@ const useStyles = makeStyles((theme) => ({
   margin: {
     marginTop: theme.spacing(2),
   },
+  empty: {
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(2)
+  }
 }));
 
 const tableTheme = createMuiTheme({
@@ -37,6 +41,14 @@ const Mergers = () => {
 
   if (!auth._id) {
     return <Redirect to='/login' />
+  }
+
+  if (!mergers.length) {
+    return (
+      <Paper className={classes.empty}>
+        <h2>做T尚未成功，同志仍需努力...💪</h2>
+      </Paper>
+    )
   }
 
   return (
