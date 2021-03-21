@@ -1,6 +1,7 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TransactionCreator from './TransactionCreator'
+import Container from '@material-ui/core/Container'
 import NavBar from '../navBar/NavBar'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
     width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
+    [theme.breakpoints.up(800 + theme.spacing(2) * 2)]: {
+      width: 800,
       marginLeft: 'auto',
       marginRight: 'auto',
     },
@@ -26,10 +27,10 @@ const Transactions = () => {
     <React.Fragment>
       <CssBaseline />
       <NavBar />
-      <main className={classes.layout}>
+      <Container className={classes.layout}>
         <TransactionCreator />
         <TransactionList />
-      </main>
+      </Container>
     </React.Fragment>
   );
 }

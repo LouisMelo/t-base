@@ -1,4 +1,5 @@
 import React from 'react';
+import dayjs from 'dayjs'
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -33,7 +34,7 @@ const TransactionItem = (props) => {
       <TableCell>{price}</TableCell>
       <TableCell>{amount}</TableCell>
       <TableCell>{ price * amount }</TableCell>
-      <TableCell>{date}</TableCell>
+      <TableCell>{dayjs(date).format('YYYY-MM-DD')}</TableCell>
       <TableCell>
         <IconButton aria-label='delete'>
           <DeleteIcon />

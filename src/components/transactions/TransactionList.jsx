@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Redirect } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
@@ -11,21 +13,22 @@ import Checkbox from '@material-ui/core/Checkbox';
 import TransactionItem from './TransactionItem';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import xor from 'lodash/xor'
+import { getTransactions } from '../../store/actions/transactionActions'
 
 import { makeStyles } from '@material-ui/core/styles';
 
-function createData(_id, type, code, price, amount, date) {
-  return { _id, type, code, price, amount, date }
-}
+// function createData(_id, type, code, price, amount, date) {
+//   return { _id, type, code, price, amount, date }
+// }
 
-const transactions = [
-  createData('1', 'b', '601166', 25.3, 3000, '今天'),
-  createData('2', 's', '601166', 25.3, 3000, '昨天'),
-  createData('3', 'b', '601166', 25.3, 3000, '昨天'),
-  createData('4', 'b', '601166', 25.3, 3000, '昨天'),
-  createData('5', 's', '601166', 25.3, 3000, '前天'),
-  createData('6', 's', '601166', 25.3, 3000, '前天'),
-]
+// const transactions = [
+//   createData('1', 'b', '601166', 25.3, 3000, '今天'),
+//   createData('2', 's', '601166', 25.3, 3000, '昨天'),
+//   createData('3', 'b', '601166', 25.3, 3000, '昨天'),
+//   createData('4', 'b', '601166', 25.3, 3000, '昨天'),
+//   createData('5', 's', '601166', 25.3, 3000, '前天'),
+//   createData('6', 's', '601166', 25.3, 3000, '前天'),
+// ]
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -45,6 +48,9 @@ const tableTheme = createMuiTheme({
 
 const TransactionList = () => {
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const auth = useSelector((state) => state.auth)
+  const transactions = useSelector((state) => state.transactions)
 
   const [selected, setSelected] = useState([])
 
@@ -68,6 +74,14 @@ const TransactionList = () => {
     return xor(selected, transactions.map(t => t._id)).length === 0
   }
 
+  useEffect(() => {
+    dispatch(getTransactions())
+  }, [dispatch])
+
+  if (!auth._id) {
+    return <Redirect to='/login' />
+  }
+
   const tableHead = (
     <TableHead>
       <TableRow>
@@ -83,7 +97,7 @@ const TransactionList = () => {
         <TableCell>价格</TableCell>
         <TableCell>数量</TableCell>
         <TableCell>总金额</TableCell>
-        <TableCell>时间</TableCell>
+        <TableCell>成交时间</TableCell>
         <TableCell>删除</TableCell>
       </TableRow>
     </TableHead>

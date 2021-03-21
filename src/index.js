@@ -8,6 +8,11 @@ import thunk from 'redux-thunk'
 
 import rootReducer from './store/reducers/rootReducer'
 
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
+
+dayjs.locale('zh-cn')
+
 const store = createStore(
   rootReducer,
   applyMiddleware(thunk)
