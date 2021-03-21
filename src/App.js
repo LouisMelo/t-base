@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
-import Transactions from './components/transactions/Transactions'
+import Home from './components/Home'
 import { loadUser } from './store/actions/authActions'
 
 import { ToastContainer } from 'react-toastify'
@@ -22,7 +22,7 @@ function App() {
       <Switch>
         <Route path='/login' component={ Login } />
         <Route path='/register' component={ Register } />
-        <Route path='/' component={ Transactions } />
+        <Route path='/' component={ Home } />
       </Switch>
     </BrowserRouter>
   );

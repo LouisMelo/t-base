@@ -29,17 +29,13 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
       padding: theme.spacing(3),
     },
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
   },
   formControl: {
     minWidth: 120,
@@ -47,7 +43,8 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: theme.spacing(2)
   },
 }));
 
@@ -178,7 +175,6 @@ const TransactionCreator = () => {
             type="submit"
             variant="contained"
             color="primary"
-            className={classes.submit}
             onClick={handleSubmit}
           >
             确认
