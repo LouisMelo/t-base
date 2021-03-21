@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify'
+import groupBy from 'lodash/groupBy'
 import { Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import Table from '@material-ui/core/Table';
@@ -71,7 +73,42 @@ const TransactionList = () => {
   }
 
   const handleMerge = () => {
+    // 检查 selected 是否合规
+    const selectedTransactions = transactions.filter((transaction) => {
+      return selected.includes(transaction._id)
+    })
+
+    const groupedByCode = groupBy(selectedTransactions, (t) => t.code)
+
+    if (Object.keys(groupedByCode).length > 1) {
+      // 要求选择同一支股票
+      toast.error('请选择同一支股票...', {
+        position: toast.POSITION.BOTTOM_RIGHT
+      })
+      setSelected([])
+      return
+    }
+
+    const { b: buyGroup , s: sellGroup } = groupBy(selectedTransactions, (t) => t.type)
+    const buyAmount = buyGroup.reduce((amount, curr) => {
+      return amount + curr.amount
+    }, 0)
+
+    const sellAmount = sellGroup.reduce((amount, curr) => {
+      return amount + curr.amount
+    }, 0)
+
+    if (buyAmount !== sellAmount) {
+      // 要去买卖数量相等
+      toast.error('请选择买入/卖出数量相等的成交记录...', {
+        position: toast.POSITION.BOTTOM_RIGHT
+      })
+      setSelected([])
+      return
+    }
+
     dispatch(addMerger(selected))
+    setSelected([])
   }
 
   useEffect(() => {
