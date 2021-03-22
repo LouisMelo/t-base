@@ -13,6 +13,10 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import TransactionItem from './TransactionItem';
+import TransactionTable from './TransactionTable'
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import Collapse from '@material-ui/core/Collapse'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import xor from 'lodash/xor'
 import { getTransactions } from '../../store/actions/transactionActions'
@@ -31,6 +35,16 @@ const useStyles = makeStyles((theme) => ({
   },
   padding: {
     padding: theme.spacing(2)
+  },
+  'section-toggler': {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer'
+  },
+  icon: {
+    marginRight: theme.spacing(1)
   }
 }));
 
@@ -49,9 +63,11 @@ const TransactionList = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const auth = useSelector((state) => state.auth)
-  const transactions = useSelector((state) => state.transactions, (left, right) => left === right)
+  const transactions = useSelector((state) => state.transactions.filter((t) => !t.isComplete))
+  const completedTransactions = useSelector((state) => state.transactions.filter((t) => t.isComplete))
 
   const [selected, setSelected] = useState([])
+  const [showCompleted, setShowCompleted] = useState(false)
 
   const handleSelect = (id) => {
     if (selected.includes(id)) {
@@ -67,6 +83,10 @@ const TransactionList = () => {
     } else {
       setSelected(transactions.map(t => t._id))
     }
+  }
+
+  const handleShowCompletedSection = () => {
+    setShowCompleted(!showCompleted)
   }
 
   const isAllSelected = () => {
@@ -187,6 +207,13 @@ const TransactionList = () => {
       >
         合并
       </Button>
+      <div onClick={handleShowCompletedSection} className={classes['section-toggler']}>
+        { showCompleted ? <KeyboardArrowUpIcon className={classes.icon} /> : <KeyboardArrowRightIcon className={classes.icon} /> }
+        { showCompleted ? '收起已合并记录' : '显示已合并记录' }
+      </div>
+      <Collapse in={showCompleted}>
+        <TransactionTable transactions={ completedTransactions } />
+      </Collapse>
     </React.Fragment>
   );
 }

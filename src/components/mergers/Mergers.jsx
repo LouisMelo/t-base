@@ -68,7 +68,7 @@ const Mergers = () => {
             <TableHead>
               <TableRow>
                 <TableCell>合并时间</TableCell>
-                <TableCell>收益</TableCell>
+                <TableCell>估算收益</TableCell>
                 <TableCell>买卖周期</TableCell>
                 <TableCell>涉及成交</TableCell>
               </TableRow>
