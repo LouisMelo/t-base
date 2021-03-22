@@ -183,7 +183,7 @@ const TransactionList = () => {
         fullWidth
         className={classes.margin}
         onClick={handleMerge}
-        disabled={selected <= 1}
+        disabled={selected.length <= 1}
       >
         合并
       </Button>
