@@ -30,7 +30,7 @@ export const addTransaction = (transaction) => {
         console.log(error.response)
 
         toast.error(error.response?.data, {
-          position: toast.POSITION.BOTTOM_RIGHT
+          position: toast.POSITION.TOP_RIGHT
         })
       })
   }
@@ -50,7 +50,7 @@ export const deleteTransaction = (id) => {
         console.log(error)
 
         toast.error(error.response?.data, {
-          position: toast.POSITION.BOTTOM_RIGHT
+          position: toast.POSITION.TOP_RIGHT
         })
       })
   }

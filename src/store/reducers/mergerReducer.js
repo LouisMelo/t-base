@@ -6,7 +6,7 @@ const mergerReducer = (mergers = [], action) => {
       return action.mergers.data
     case 'ADD_MERGER':
       toast('恭喜，又成功T了一笔🎉...', {
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.TOP_RIGHT
       })
       return [action.merger.data, ...mergers]
     default:

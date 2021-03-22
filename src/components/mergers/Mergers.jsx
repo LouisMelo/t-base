@@ -28,7 +28,8 @@ const tableTheme = createMuiTheme({
   overrides: {
     MuiTableCell: {
       root: {
-        textAlign: 'center'
+        textAlign: 'center',
+        whiteSpace: 'nowrap'
       }
     }
   }

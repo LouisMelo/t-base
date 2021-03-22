@@ -38,7 +38,8 @@ const tableTheme = createMuiTheme({
   overrides: {
     MuiTableCell: {
       root: {
-        textAlign: 'center'
+        textAlign: 'center',
+        whiteSpace: 'nowrap'
       }
     }
   }
@@ -83,7 +84,7 @@ const TransactionList = () => {
     if (Object.keys(groupedByCode).length > 1) {
       // 要求选择同一支股票
       toast.error('请选择同一支股票...', {
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.TOP_RIGHT
       })
       setSelected([])
       return
@@ -101,7 +102,7 @@ const TransactionList = () => {
     if (buyAmount !== sellAmount) {
       // 要去买卖数量相等
       toast.error('请选择买入/卖出数量相等的成交记录...', {
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.TOP_RIGHT
       })
       setSelected([])
       return
@@ -175,18 +176,17 @@ const TransactionList = () => {
           </Table>
         </TableContainer>
       </ThemeProvider>
-      { selected.length > 0 &&
-        <Button
-          variant='contained'
-          size="medium"
-          color="primary"
-          fullWidth
-          className={classes.margin}
-          onClick={handleMerge}
-        >
-          合并
-        </Button>
-      }
+      <Button
+        variant='contained'
+        size="medium"
+        color="primary"
+        fullWidth
+        className={classes.margin}
+        onClick={handleMerge}
+        disabled={selected <= 1}
+      >
+        合并
+      </Button>
     </React.Fragment>
   );
 }
