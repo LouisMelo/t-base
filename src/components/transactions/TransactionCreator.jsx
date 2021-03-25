@@ -10,6 +10,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse'
+import DayjsUtils  from '@date-io/dayjs'
+import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { makeStyles } from '@material-ui/core/styles';
 
 import { addTransaction } from '../../store/actions/transactionActions'
@@ -61,6 +63,7 @@ const TransactionCreator = () => {
   const [code, setCode] = useState('');
   const [price, setPrice] = useState('');
   const [amount, setAmount] = useState('');
+  const [date, setDate] = useState(new Date())
 
   const [total, setTotal] = useState(0)
 
@@ -110,7 +113,8 @@ const TransactionCreator = () => {
       type,
       code,
       price,
-      amount
+      amount,
+      date
     }))
 
     clearData()
@@ -139,7 +143,7 @@ const TransactionCreator = () => {
         <Paper className={classes.paper}>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={6}>
                 <FormControl className={classes.formControl}>
                   <InputLabel id="transaction-type-select-label">选择买入/卖出</InputLabel>
                   <Select
@@ -153,7 +157,17 @@ const TransactionCreator = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} md={8}>
+              <Grid item xs={12} md={6}>
+              <MuiPickersUtilsProvider utils={ DayjsUtils }>
+                <DateTimePicker
+                  variant="inline"
+                  label="日期"
+                  value={date}
+                  onChange={setDate}
+                />
+              </MuiPickersUtilsProvider>
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
