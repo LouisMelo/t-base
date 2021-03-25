@@ -10,12 +10,12 @@ import Link from '@material-ui/core/Link'
 import { signOut } from '../../store/actions/authActions'
 import grey from '@material-ui/core/colors/grey'
 import { makeStyles } from '@material-ui/core/styles';
-import logo from '../../images/logo.png'
+import brand from '../../images/brand.png'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   divider: {
     width: '1px',
@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     cursor: 'pointer'
+  },
+  brand: {
+    marginRight: theme.spacing(2)
   }
 }));
 
@@ -44,7 +47,7 @@ const NavBar = () => {
       <Toolbar>
         <Grid container>
           <Grid item xs={6} md={6} style={{ display: 'flex', alignItems: 'center'}}>
-            <img src={logo} alt="logo" height='40px'/>
+            <img src={brand} alt="brand" height='40px' className={classes.brand} />
             <Typography variant='h6' color='inherit' noWrap>
               <Box fontWeight={600}>
                 T-Base

@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { signIn } from '../../store/actions/authActions'
-import logo from '../../images/logo.png';
+import brand from '../../images/brand.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,7 +70,7 @@ const Login = () => {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <img src={logo} alt='logo' width='210px' />
+          <img src={brand} alt='brand' width='210px' />
           <form className={classes.form} noValidate>
             <TextField
               value={creds.email}

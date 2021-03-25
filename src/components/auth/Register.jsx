@@ -11,7 +11,7 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { signUp } from "../../store/actions/authActions";
 
-import logo from '../../images/logo.png'
+import brand from '../../images/brand.png'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,7 +60,7 @@ const Register = () => {
       <CssBaseline />
       <Container maxWidth='xs'>
       <div className={classes.paper}>
-        <img src={logo} alt='logo' width='210px' />
+        <img src={brand} alt='brand' width='210px' />
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
